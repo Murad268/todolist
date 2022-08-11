@@ -1,0 +1,22 @@
+.addToDo {
+   padding-top: 18px;
+}
+.addToDoForm {
+   width: 100%;
+   background: white;
+   display: flex;
+   justify-content: space-between;
+   padding: 10px;
+   border-radius: 10px;
+}
+.addToDoForm input {
+   background: transparent;
+   border: none;
+   outline: none;
+   padding-left: 66px;
+   font-family: 'Exo 2';
+   font-style: normal;
+   font-weight: 400;
+   font-size: 16px;
+   line-height: 19px;
+}

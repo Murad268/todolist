@@ -1,0 +1,26 @@
+.footer {
+   background: #FFFFFF;
+   border-radius: 0px 0px 10px 10px;
+   padding: 17px 12px;
+   display: flex;
+   font-family: 'Exo 2';
+   font-style: normal;
+   font-weight: 400;
+   font-size: 12px;
+   line-height: 14px;
+   color: #858585;
+   width: 100%;
+   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.footer__all {
+   margin-right: 13px;
+   width: max-content;
+}
+.footer__done {
+   margin-right: 230px;
+   max-width: max-content;
+}
+.delete__all {
+   max-width: max-content;
+   cursor: pointer;
+}

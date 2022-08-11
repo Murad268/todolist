@@ -1,0 +1,46 @@
+.todo {
+   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+   padding: 20px;
+   display: flex;
+   align-items: center;
+   position: relative;
+   cursor: pointer;
+}
+.todo__circle {
+   width: 24px;
+   height: 24px;
+   border: 1px solid #00D1FF;
+   border-radius: 100%;
+   margin-right: 16px;
+   cursor: pointer;
+}
+.todo__circle__active {
+   background: #00D1FF;
+   position: relative;
+}
+.todo__circle__active::after {
+   content: "✓";
+   color: white;
+   position: absolute;
+   top: 4px;
+   left: 6px;
+}
+.todo__trash {
+   position: absolute;
+   right: 24px;
+   top: 20px;
+   cursor: pointer;
+   opacity: 0;
+   transition: 0.3s;
+}
+.todo:hover .todo__trash {
+   opacity: 1;
+}
+.todo__text {
+   font-family: 'Exo 2';
+   font-style: normal;
+   font-weight: 400;
+   font-size: 16px;
+   line-height: 19px;
+   color: #414141;
+}

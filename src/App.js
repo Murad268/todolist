@@ -1,24 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
 
+import  {TodoContextProvider}  from "./contexts/todoContext";
+import Header from "./components/Header/Header";
+import Layout from "./components/Container/Layout";
+import AddToDo from "./components/addToDo/AddToDo";
+import ToDoList from "./components/toDoList/ToDoList";
+import Footer from "./components/Footer/Footer";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <TodoContextProvider>
+      <main className="main">
+        <Layout>
+          <Header/>
+          <AddToDo/>
+          <ToDoList/>
+          <Footer/>
+        </Layout> 
+      </main>
+   </TodoContextProvider>
   );
 }
 
