@@ -1,5 +1,5 @@
 import React, {createContext, useContext, useState} from 'react';
-
+import {toast, ToastContainer} from 'react-toastify'
 const TodoContext = createContext()
 
 export const TodoContextProvider = ({children}) => {
@@ -30,16 +30,21 @@ export const TodoContextProvider = ({children}) => {
          done: false
       }
    ]);
-
+   const deleteVery = () => toast("Задача удалена");
+   const addTaskVery = () => toast("Задача добавлена");
+   const trimVery = () => toast("Невозможно добвать пустую задачу");
+   const deleteAllVery = () => toast("Все задачи удалены");
    const addNewElement = (data) => {
       setTodos(prev => {
          return [...prev, data]
       })
+      addTaskVery();
    } 
    const deleteAll = () => {
       setTodos(prev => {
          return []
       })
+      deleteAllVery();
    }
    const doneToDos = todos.filter(item => item.done).length;
    const setDone = (id) => {
@@ -54,10 +59,9 @@ export const TodoContextProvider = ({children}) => {
    }
    const deleteTodo = (id) => {
       setTodos(prev => {
-    
             return prev.filter(item => item.id !== id)
-         
       })
+      deleteVery();
    }
    const values = {
       todos,
@@ -65,7 +69,8 @@ export const TodoContextProvider = ({children}) => {
       deleteAll,
       doneToDos,
       setDone,
-      deleteTodo
+      deleteTodo,
+      trimVery
    }
 
    return <TodoContext.Provider value={values}>{children}</TodoContext.Provider>

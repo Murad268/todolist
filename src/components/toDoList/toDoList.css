@@ -12,4 +12,18 @@
    align-items: center;
    position: relative;
    cursor: pointer;
+   display: flex;
+   flex-direction: column;
+   padding: 80px 0 39px 0;
+}
+.empty img {
+   margin-bottom: 32px;
+}
+.empty p {
+   font-family: 'Exo 2';
+   font-style: normal;
+   font-weight: 500;
+   font-size: 18px;
+   line-height: 22px;
+   color: #858585;
 }
