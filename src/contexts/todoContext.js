@@ -9,8 +9,8 @@ export const TodoContextProvider = ({children}) => {
    ]);
    const todoData = new Services();
   
-   useEffect(() => {
-      todoData.getData().then(res => setTodos(res))
+    useEffect(() => {
+      todoData.getData().then(res => setTodos(res)).catch(() => alert("Müəllim, zəhmət olmasa db.json faylını 3001-ci portda işə salın(json-server db.json --port 3001)"));
    }, [])
 
    const deleteVery = () => toast("Задача удалена");
