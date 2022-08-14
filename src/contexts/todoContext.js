@@ -7,11 +7,12 @@ export const TodoContextProvider = ({children}) => {
    const [todos, setTodos] = useState([
   
    ]);
+   const doneToDos = todos.filter(item => item.done).length;
    const todoData = new Services();
   
    useEffect(() => {
       todoData.getData().then(res => setTodos(res)).catch(() => alert("Müəllim, zəhmət olmasa db.json faylını 3001-ci portda işə salın(json-server db.json --port 3001)"));
-   }, [])
+   }, [todos.length])
 
    const deleteVery = () => toast("Задача удалена");
    const addTaskVery = () => toast("Задача добавлена");
@@ -24,20 +25,20 @@ export const TodoContextProvider = ({children}) => {
          setTodos(prev => {
             return [...prev, data]
          })
-         addTaskVery();
       });
+      
+      addTaskVery();
    } 
    const deleteAll = () => {
       todoData.getData().then(res => res.forEach(item => {
-         todoData.delData(item.id).then(() => {
-            setTodos(prev => {
-               return []
-            })
-         }) 
+         todoData.delData(item.id)
       }))   
+      setTodos(prev => {
+         return []
+      }) 
       deleteAllVery();
    }
-   const doneToDos = todos.filter(item => item.done).length;
+   
    const setDone = (id) => {
       setTodos(prev => {
          return prev.map(item => {
@@ -52,12 +53,11 @@ export const TodoContextProvider = ({children}) => {
       
    }
    const deleteTodo = (id) => {
-      todoData.delData(id).then(() => {
-         setTodos(prev => {
-               return prev.filter(item => item.id !== id)
-         })
-         deleteVery();
-      })  
+      todoData.delData(id);
+      setTodos(prev => {
+         return prev.filter(item => item.id !== id)
+      })
+      deleteVery();  
    }
    const values = {
       todos,
