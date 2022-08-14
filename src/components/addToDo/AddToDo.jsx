@@ -25,7 +25,7 @@ const AddToDo = () => {
    return (
       <div onSubmit={onSubmit} className='addToDo'>
          <form className="addToDoForm">
-            <input value={value.text} onChange={e=>setValue(prev => ({...prev, text: e.target.value.replaceAll(/\s/g,'')}))} type="text" placeholder='добавить задачу'/>
+            <input value={value.text} onChange={e=>setValue(prev => ({...prev, text: e.target.value}))} type="text" placeholder='добавить задачу'/>
             <button  className="btn btn-primary">+</button>
          </form>
          <ToastContainer
