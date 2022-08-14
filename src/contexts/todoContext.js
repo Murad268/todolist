@@ -10,13 +10,15 @@ export const TodoContextProvider = ({children}) => {
    const todoData = new Services();
   
    useEffect(() => {
-      todoData.getData().then(res => setTodos(res))
+      todoData.getData().then(res => setTodos(res)).catch(() => alert("Müəllim, zəhmət olmasa db.json faylını 3001-ci portda işə salın(json-server db.json --port 3001)"));
    }, [])
 
    const deleteVery = () => toast("Задача удалена");
    const addTaskVery = () => toast("Задача добавлена");
    const trimVery = () => toast("Невозможно добвать пустую задачу");
    const deleteAllVery = () => toast("Все задачи удалены");
+   const doneVery = () => toast("Задача добавлена в выполненные");
+   const removeFromDoneVery = () => toast("Задача удалена из выполненных");
    const addNewElement = (data) => {
       todoData.addData(JSON.stringify(data)).then(() => {
          setTodos(prev => {
@@ -40,11 +42,14 @@ export const TodoContextProvider = ({children}) => {
       setTodos(prev => {
          return prev.map(item => {
             if(item.id === id) {
+               item.done === false?doneVery():removeFromDoneVery();
+               todoData.dataDone(id, !item.done);
                return {...item, done: !item.done}
             }
             return item
          })
       })
+      
    }
    const deleteTodo = (id) => {
       todoData.delData(id).then(() => {

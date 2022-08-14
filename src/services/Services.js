@@ -36,15 +36,21 @@ class Services extends Component {
    }
 
 
-   // delAllData = async (id) => {
-   //    const res = await fetch(`http://localhost:3001/todos${id}`, {
-   //       method: "DELETE"
-   //    })
-   //    if(!res.ok) {
-   //       console.log("error")
-   //    }
-   //    return await res.json()
-   // }
+   dataDone = async (id, bool) => {
+      
+      const res = await fetch(`http://localhost:3001/todos/${id}`, {
+         headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          method: 'PATCH',                                                              
+          body: JSON.stringify( { done: bool } ) 
+      })
+      if(!res.ok) {
+         console.log("error")
+      }
+      return await res.json()
+   }
 }
 
 export default Services;
