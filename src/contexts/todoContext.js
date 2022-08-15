@@ -25,11 +25,8 @@ export const TodoContextProvider = ({children}) => {
    const doneVery = () => toast("Задача добавлена в выполненные");
    const removeFromDoneVery = () => toast("Задача удалена из выполненных");
    const addNewElement = (data) => {
-      setTodos(prev => {
-         const newTodos = [data, ...prev];
-         setTodosWithSave(newTodos);
-         return newTodos
-      })
+      const newTodos = [data, ...todos];
+      setTodosWithSave(newTodos);
       addTaskVery();
    } 
    const deleteAll = () => {
@@ -57,12 +54,8 @@ export const TodoContextProvider = ({children}) => {
 
    const deleteTodo = (id) => {
       
-      setTodos(prev => {
-         const newTodos = prev.filter(item => item.id !== id);
-         setTodosWithSave(newTodos);
-         return newTodos
-      })
-      localStorage.removeItem(id);
+      const newTodos = todos.filter(item => item.id !== id);
+      setTodosWithSave(newTodos);
       deleteVery();  
    }
    const values = {
