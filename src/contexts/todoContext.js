@@ -28,7 +28,7 @@ export const TodoContextProvider = ({children}) => {
       setTodos(prev => {
          const newTodos = [data, ...prev];
          setTodosWithSave(newTodos);
-         return [...prev, data]
+         return newTodos
       })
       addTaskVery();
    } 
@@ -60,7 +60,7 @@ export const TodoContextProvider = ({children}) => {
       setTodos(prev => {
          const newTodos = prev.filter(item => item.id !== id);
          setTodosWithSave(newTodos);
-         return prev.filter(item => item.id !== id)
+         return newTodos
       })
       localStorage.removeItem(id);
       deleteVery();  
