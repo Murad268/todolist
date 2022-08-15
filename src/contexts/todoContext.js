@@ -38,16 +38,13 @@ export const TodoContextProvider = ({children}) => {
    }
    
    const setDone = (id) => {
-      setTodos(prev => {
-         return prev.map(item => {
-            if(item.id === id) {
-               item.done === false?doneVery():removeFromDoneVery();
-               
-               return {...item, done: !item.done}
-            }
-            return item
-         })
-      })
+      let updatedTodos = todos.map(todo => {
+         if (todo.id === id) {
+           todo.done = !todo.done;
+         }
+         return todo;
+       });
+         setTodosWithSave(updatedTodos);
       
    }
 
