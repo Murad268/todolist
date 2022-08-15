@@ -24,10 +24,7 @@ export const TodoContextProvider = ({children}) => {
       addTaskVery();
    } 
    const deleteAll = () => {
-      setTodos(prev => {
-         return []
-      }) 
-      localStorage.clear();
+      setTodos([]);
       deleteAllVery();
    }
    
