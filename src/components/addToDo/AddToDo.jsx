@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {toast, ToastContainer} from 'react-toastify'
+import {ToastContainer} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { v4 } from 'uuid';
 import { useTodo } from '../../contexts/todoContext';
@@ -8,7 +8,7 @@ import './addToDo.css';
 const AddToDo = () => {
    const {addNewElement, trimVery} = useTodo();
    const [value, setValue] = useState({
-      id: "",
+      id: v4(),
       text: "",
       done: false
    })

@@ -1,19 +1,20 @@
 import React, {createContext, useContext, useState, useEffect} from 'react';
 import {toast} from 'react-toastify'
-import Services from '../services/Services';
 const TodoContext = createContext()
 
 export const TodoContextProvider = ({children}) => {
-   const [todos, setTodos] = useState([
-  
-   ]);
+   const [todos, setTodos] = useState([]);
    const doneToDos = todos.filter(item => item.done).length;
-   const todoData = new Services();
   
-   useEffect(() => {
-      todoData.getData().then(res => setTodos(res)).catch(() => alert("Müəllim, zəhmət olmasa db.json faylını 3001-ci portda işə salın(json-server db.json --port 3001)"));
-   }, [todos.length])
 
+   useEffect(() => {
+      Object.keys(localStorage).forEach(item => {
+         setTodos(prev => {
+            return [...prev, JSON.parse(localStorage.getItem(item))]
+         })
+      })
+   }, [])
+   
    const deleteVery = () => toast("Задача удалена");
    const addTaskVery = () => toast("Задача добавлена");
    const trimVery = () => toast("Невозможно добвать пустую задачу");
@@ -21,21 +22,17 @@ export const TodoContextProvider = ({children}) => {
    const doneVery = () => toast("Задача добавлена в выполненные");
    const removeFromDoneVery = () => toast("Задача удалена из выполненных");
    const addNewElement = (data) => {
-      todoData.addData(JSON.stringify(data)).then(() => {
-         setTodos(prev => {
-            return [...prev, data]
-         })
-      });
-      
+      setTodos(prev => {
+         return [...prev, data]
+      })
+      localStorage.setItem(data.id, JSON.stringify(data));
       addTaskVery();
    } 
    const deleteAll = () => {
-      todoData.getData().then(res => res.forEach(item => {
-         todoData.delData(item.id)
-      }))   
       setTodos(prev => {
          return []
       }) 
+      localStorage.clear();
       deleteAllVery();
    }
    
@@ -44,7 +41,7 @@ export const TodoContextProvider = ({children}) => {
          return prev.map(item => {
             if(item.id === id) {
                item.done === false?doneVery():removeFromDoneVery();
-               todoData.dataDone(id, !item.done);
+               
                return {...item, done: !item.done}
             }
             return item
@@ -52,11 +49,13 @@ export const TodoContextProvider = ({children}) => {
       })
       
    }
+
+
    const deleteTodo = (id) => {
-      todoData.delData(id);
       setTodos(prev => {
          return prev.filter(item => item.id !== id)
       })
+      localStorage.removeItem(id);
       deleteVery();  
    }
    const values = {
