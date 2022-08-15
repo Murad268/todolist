@@ -7,13 +7,7 @@ export const TodoContextProvider = ({children}) => {
    const doneToDos = todos.filter(item => item.done).length;
   
 
-   // useEffect(() => {
-   //    Object.keys(localStorage).forEach(item => {
-   //       setTodos(prev => {
-   //          return [...prev, JSON.parse(localStorage.getItem(item))]
-   //       })
-   //    })
-   // }, [])
+  
    const setTodosWithSave = (newTodos) => {
       setTodos(newTodos);
       localStorage.setItem('todos', JSON.stringify(newTodos))
@@ -44,8 +38,7 @@ export const TodoContextProvider = ({children}) => {
          }
          return todo;
        });
-         setTodosWithSave(updatedTodos);
-      
+         setTodosWithSave(updatedTodos);  
    }
 
 
