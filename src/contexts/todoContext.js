@@ -3,18 +3,21 @@ import {toast} from 'react-toastify'
 const TodoContext = createContext()
 
 export const TodoContextProvider = ({children}) => {
-   const [todos, setTodos] = useState([]);
+   const [todos, setTodos] = useState(localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos')) : []);;
    const doneToDos = todos.filter(item => item.done).length;
   
 
-   useEffect(() => {
-      Object.keys(localStorage).forEach(item => {
-         setTodos(prev => {
-            return [...prev, JSON.parse(localStorage.getItem(item))]
-         })
-      })
-   }, [])
-   
+   // useEffect(() => {
+   //    Object.keys(localStorage).forEach(item => {
+   //       setTodos(prev => {
+   //          return [...prev, JSON.parse(localStorage.getItem(item))]
+   //       })
+   //    })
+   // }, [])
+   const setTodosWithSave = (newTodos) => {
+      setTodos(newTodos);
+      localStorage.setItem('todos', JSON.stringify(newTodos))
+  };
    const deleteVery = () => toast("Задача удалена");
    const addTaskVery = () => toast("Задача добавлена");
    const trimVery = () => toast("Невозможно добвать пустую задачу");
@@ -23,9 +26,10 @@ export const TodoContextProvider = ({children}) => {
    const removeFromDoneVery = () => toast("Задача удалена из выполненных");
    const addNewElement = (data) => {
       setTodos(prev => {
+         const newTodos = [data, ...prev];
+         setTodosWithSave(newTodos);
          return [...prev, data]
       })
-      localStorage.setItem(data.id, JSON.stringify(data));
       addTaskVery();
    } 
    const deleteAll = () => {
@@ -52,7 +56,10 @@ export const TodoContextProvider = ({children}) => {
 
 
    const deleteTodo = (id) => {
+      
       setTodos(prev => {
+         const newTodos = prev.filter(item => item.id !== id);
+         setTodosWithSave(newTodos);
          return prev.filter(item => item.id !== id)
       })
       localStorage.removeItem(id);
