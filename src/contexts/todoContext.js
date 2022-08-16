@@ -5,7 +5,7 @@ const TodoContext = createContext()
 export const TodoContextProvider = ({children}) => {
    const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos') )? JSON.parse(localStorage.getItem('todos')) :  localStorage.setItem('todos', JSON.stringify([])));
 
-   const doneToDos = todos.filter(item => item.done).length;
+   const doneToDos = !!todos.length?todos.filter(item => item.done).length:0;
   
 
   
