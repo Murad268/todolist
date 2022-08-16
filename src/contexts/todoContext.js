@@ -3,7 +3,8 @@ import {toast} from 'react-toastify'
 const TodoContext = createContext()
 
 export const TodoContextProvider = ({children}) => {
-   const [todos, setTodos] = useState(localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos')) : []);;
+   const [todos, setTodos] = useState(localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos')) :  localStorage.setItem('todos', JSON.stringify([])));
+
    const doneToDos = todos.filter(item => item.done).length;
   
 
@@ -24,7 +25,7 @@ export const TodoContextProvider = ({children}) => {
       addTaskVery();
    } 
    const deleteAll = () => {
-      setTodos([]);
+      setTodosWithSave([]);
       deleteAllVery();
    }
    
