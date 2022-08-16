@@ -6,7 +6,7 @@ export const TodoContextProvider = ({children}) => {
    const [todos, setTodos] = useState(localStorage.getItem('todos')? JSON.parse(localStorage.getItem('todos')) :  localStorage.setItem('todos', JSON.stringify([])));
 
    const doneToDos = !!todos.length?todos.filter(item => item.done).length:0;
-  console.log(todos)
+
 
   
    const setTodosWithSave = (newTodos) => {
